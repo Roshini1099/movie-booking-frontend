@@ -25,7 +25,7 @@ class Grid extends Component {
  //async call to get data from the server
   loadAvailableSeatsFromServer = ()=>{
     return new Promise(resolve=>{
-        axios.get('http://localhost:3000/api/currentSeats')
+        axios.get('https://movie-ticket-booking-backend.herokuapp.com/api/currentSeats')
         .then(function (response) {
           resolve(response.data.rowsArray);
         })
@@ -42,7 +42,7 @@ class Grid extends Component {
   //async call to book the desired Seat
   requestSeatBooking=(seatId,rowName)=>{
       return new Promise(resolve=>{
-        axios.post('http://localhost:3000/api/bookSeat', {
+        axios.post('https://movie-ticket-booking-backend.herokuapp.com/api/bookSeat', {
           rowName,
           seatId,
           sessionId:this.sessionId
@@ -96,6 +96,9 @@ class Grid extends Component {
     this.setState({username:event.target.value,email:event.target.value})
 
   }
+  home=async(e)=>{
+    this.props.history.push("/");
+}
 
   render() {
     return (
@@ -136,20 +139,6 @@ class Grid extends Component {
                             </fieldset>
                           </div>
                           <div className="form-group">
-                          <fieldset>
-                              <label>
-                                <p>Movies:</p>
-                                 <select name="movies">
-                                    <option value="">--Please choose a movie--</option>
-                                    <option value="Kingslavia">Kingsglaive</option>
-                                    <option value="evildead">Finalfantasy</option>
-                                    <option value="zootopia">ResidentEvil</option>
-                                  </select>
-                              </label>
-                            </fieldset>
-                          </div>
-                          <div className="form-group">
-                            
                             <fieldset>
                               <label>
                                 <p>Email:</p>
@@ -172,8 +161,12 @@ class Grid extends Component {
                               </div>
                             </Modal>
             </form>
-          
-          </div>
+           </div>
+           <div>
+          <button type="submit" className="btn btn-primary mr-1" onClick={this.home}>
+                        Return to HomePage
+                    </button>
+          </div>  
         </div>
         </div>
         </div>
