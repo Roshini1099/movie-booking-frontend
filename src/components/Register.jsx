@@ -20,7 +20,7 @@ const Register = (props) => {
     try {
       setData({ ...data, error: null });
       await axios.post(
-        "http://localhost:3000/api/register",
+        "https://movie-ticket-booking-backend.herokuapp.com/api/register",
         { name, email, password },
         {
           headers: {
@@ -28,11 +28,12 @@ const Register = (props) => {
           },
         }
       );
-      props.history.push("/login");
+      props.history.push("/");
     } catch (err) {
       //setData({ ...data, error: err.response.data.error });
       console.log(err);
     }
+    alert("Registered Successfully");
   };
 
   return (
@@ -75,9 +76,11 @@ const Register = (props) => {
             </div>
             {error ? <p className="text-danger">{error}</p> : null}
             <div className="text-center">
+              
               <button className="btn btn-primary" onClick={handleSubmit}>
                 Register
               </button>
+              
             </div>
           </form>
         </div>
