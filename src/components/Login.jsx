@@ -19,7 +19,7 @@ const Login = (props) => {
     try {
       setData({ ...data, error: null });
       const res = await axios.post(
-        "http://localhost:3000/api/login",
+        "https://movie-ticket-booking-backend.herokuapp.com/api/login",
         { email, password },
         {
           headers: {
@@ -28,7 +28,7 @@ const Login = (props) => {
         }
       );
       //localStorage.setItem("token", res.data.token);
-      props.history.push("/movies");
+      props.history.push("/seat");
     } catch (err) {
       //setData({ ...data, error: err.response.data});
       console.log(err);
