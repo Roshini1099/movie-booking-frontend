@@ -9,6 +9,7 @@ import Admin from './components/Admin';
 import Cards from './components/cards/Cards';
 import Grid from './components/Grid';
 import "./App.css";
+import form from './components/Form';
 //import MoviesList from './components/MovieList/MovieList';
 class App extends Component{
   render()
@@ -26,6 +27,7 @@ class App extends Component{
             <Route exact path="/seat" component={Grid}/>
             <Route exact path="/movies" component={Cards}/>
             <Route exact path="/admin" component={Admin}/>
+            <Route exact path="/form" component={form}/>
           </Switch>  
        </BrowserRouter>
 
