@@ -17,6 +17,7 @@ class Grid extends Component {
       rows : [],
       data:[{username:'',email:''}],
       show:false,
+      booked:false,
       showError : ``
   }
 
@@ -81,11 +82,16 @@ class Grid extends Component {
 
    //set state after booking th seat
    handleBooking = async (seatId,rowName)=>{
+     
     const {data,errorMessage} = await this.requestSeatBooking(seatId,rowName);
-    if(errorMessage !== undefined)
+    if(errorMessage !== undefined){
       this.setState({rows:data,showError:errorMessage}) 
-    else
-      this.setState({rows:data}) 
+    }
+      
+    else{
+      this.setState({rows:data,booked:true})
+      }
+      
 
   }
   handleSubmit=event=>{
@@ -97,12 +103,15 @@ class Grid extends Component {
 
   }
   home=async(e)=>{
-    this.props.history.push("/");
+    this.props.history.push("/form");
 }
 
   render() {
     return (
       <div className="container">
+        <hr></hr>
+        <h3>Book your seats</h3>
+        <hr></hr>
       {this.state.error}
         <ErrorView showError={this.state.showError}/>
         <div className="mt-5 w-50 mx-auto">
@@ -115,60 +124,12 @@ class Grid extends Component {
             })}
         </div>
         <hr></hr>
-        <h4 className="text-muted text-center mb-2">Book a seat to watch a Show!!!!!!!!</h4>
-        <hr></hr>
-          <div className="row">
-            <div className="col-sm-4" />
-                <div className="col-sm-8">
-                <div className="card p-5 shadow">
-            
-                        <form onSubmit={this.handleSubmit}>
-                        <div className="form-group">
-                            <fieldset>
-                              <label>
-                                <p>Name:</p>
-                                  <input 
-                                  className="form-control"
-                                  type="text"
-                                  name="username"
-                                  value={this.state.data.username}
-                                  onChange={this.handleChange.bind(this)}
-                                  required
-                                     />
-                              </label>
-                            </fieldset>
-                          </div>
-                          <div className="form-group">
-                            <fieldset>
-                              <label>
-                                <p>Email:</p>
-                                  <input
-                                  className="form-control"
-                                  type="text"
-                                  name="email"
-                                  value={this.state.data.email}
-                                  onChange={this.handleChange.bind(this)}
-                                   
-                                   />
-                             </label>
-                            </fieldset>
-                          </div>
-                            <button type="submit">Submit</button>  
-                            <Modal show={this.state.show} modalClosed={this.onModal}>
-                              <h4>Success!!</h4>
-                              <div>
-                               <p>Ticket has been successfully booked</p>
-                              </div>
-                            </Modal>
-            </form>
-           </div>
-           <div>
-          <button type="submit" className="btn btn-primary mr-1" onClick={this.home}>
-                        Return to HomePage
-                    </button>
-          </div>  
-        </div>
-        </div>
+        {this.state.booked?
+         <button className="btn-primary" onClick={this.home}>click to enter the details</button>:
+         <button className="btn-primary">Return to home page</button>
+      }
+        
+        
         </div>
         
     );
@@ -176,3 +137,4 @@ class Grid extends Component {
 }
 
 export default Grid;
+
